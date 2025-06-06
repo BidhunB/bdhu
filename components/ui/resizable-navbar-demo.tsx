@@ -36,9 +36,9 @@ export function NavbarDemo() {
         <NavBody>
           <NavbarLogo />
           <NavItems items={navItems} />
-          <div className="flex items-center gap-4">
-            <NavbarButton variant="secondary">Login</NavbarButton>
-            <NavbarButton variant="primary">Book a call</NavbarButton>
+          <div className="flex items-end mr-3 gap-4">
+            <NavbarButton variant="gradient">Download CV</NavbarButton>
+            
           </div>
         </NavBody>
 
@@ -60,7 +60,7 @@ export function NavbarDemo() {
                 key={`mobile-link-${idx}`}
                 href={item.link}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-white"
+                className="relative text-black"
               >
                 <span className="block">{item.name}</span>
               </a>
@@ -72,13 +72,6 @@ export function NavbarDemo() {
                 className="w-full"
               >
                 Login
-              </NavbarButton>
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full"
-              >
-                Book a call
               </NavbarButton>
             </div>
           </MobileNavMenu>
