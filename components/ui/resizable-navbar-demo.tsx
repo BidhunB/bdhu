@@ -15,8 +15,8 @@ import { useState } from "react"
 export function NavbarDemo() {
   const navItems = [
     {
-      name: "Academics",
-      link: "/academics",
+      name: "Projects",
+      link: "/projects",
     },
     {
       name: "Certificates",
@@ -68,10 +68,10 @@ export function NavbarDemo() {
             <div className="flex w-full flex-col gap-4">
               <NavbarButton
                 onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full"
+                variant="gradient"
+                className="w-full overflow-auto"
               >
-                Login
+                Download CV
               </NavbarButton>
             </div>
           </MobileNavMenu>
