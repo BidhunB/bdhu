@@ -102,7 +102,6 @@ const Card: React.FC<CardProps> = ({ title, description, pdfUrl, skills, preview
           {/* Add margin-top to title to accommodate date */}
           <h2 className="text-xl md:text-2xl font-bold mb-2 mt-12">{title}</h2>
           
-          {/* Description */}
           <p className="text-sm md:text-base text-gray-600 mb-4">{description}</p>
           
           <div className="flex flex-wrap gap-1.5 md:gap-2 mb-4">
