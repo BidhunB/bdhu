@@ -17,7 +17,7 @@ const Hero = () => {
           'learning TypeScript',
           'exploring Web Development',
         ],
-        typeSpeed: 1000,
+        typeSpeed: 100,
         backSpeed: 100,
         loop: true,
       });
