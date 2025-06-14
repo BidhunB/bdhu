@@ -1,45 +1,48 @@
 "use client"
-import React from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Card from '@/components/ui/card'
 import TimelineNav from '@/components/ui/timeline-nav'
-import { useState } from 'react'
-
 
 const Certificates = () => {
-     const [activeDate, setActiveDate] = useState<Date>(new Date('2023-03-18'))
+  const [activeDate, setActiveDate] = useState<Date>(new Date('2023-03-18'))
+  const [scrollProgress, setScrollProgress] = useState(0)
 
-  // Get all dates from the rendered Card components
-  const sortedDates = [
-    new Date('2023-03-18'),
-    new Date('2023-08-21'),
-    new Date('2023-08-26'),
-    new Date('2023-09-10'),
-    new Date('2023-09-24'),
-    new Date('2023-10-03'),
-    new Date('2023-10-29'),
-    new Date('2024-04-30'),
-    new Date('2024-04-06'),
-    new Date('2024-08-23'),
-    new Date('2024-11-09'),
-    new Date('2025-03-14')
-  ].sort((a, b) => a.getTime() - b.getTime())
+  // Create sorted dates array using useMemo to avoid recalculation
+  const sortedDates = useMemo(() => {
+    const dates = [
+      new Date('2023-03-18'),
+      new Date('2023-08-21'),
+      new Date('2023-08-26'),
+      new Date('2023-09-10'),
+      new Date('2023-09-24'),
+      new Date('2023-10-03'),
+      new Date('2023-10-29'),
+      new Date('2024-04-30'),
+      new Date('2024-04-06'),
+      new Date('2024-08-23'),
+      new Date('2024-11-09'),
+      new Date('2025-03-14')
+    ]
+    return dates.sort((a, b) => a.getTime() - b.getTime())
+  }, [])
 
-const scrollToDate = (date: Date) => {
-    setActiveDate(date)
+  // Add scrollToDate function
+  const scrollToDate = (date: Date) => {
     const element = document.querySelector(`[data-date="${date.toISOString()}"]`)
     if (element) {
       element.scrollIntoView({ 
         behavior: 'smooth', 
         block: 'center'
       })
+      setActiveDate(date)
     }
   }
-  return (
-     <div className="relative flex min-h-screen">
-      <div className="flex flex-row justify-end">
 
-        <div className="flex flex-col-reverse mr-28 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div data-date={new Date('2023-03-18').toISOString()}>
+  return (
+    <div className="relative flex min-h-screen">
+      <div className="flex-1 overflow-y-auto">
+        <div className="flex flex-col-reverse gap-4 mr-4 lg:mr-28">
+        <div data-date={new Date('2023-03-18').toISOString()}>
                   <Card
                       title="Advanced Driver Assistance System Workshop"
                       description="Participated in an Advanced Driver Assistance System Workshop..."
@@ -182,12 +185,13 @@ const scrollToDate = (date: Date) => {
                   />
               </div>
       </div>
-      <div>
-      <TimelineNav 
-          dates={sortedDates}
-          activeDate={activeDate}
-          onDateSelect={scrollToDate}
-        />
+      <div className='hidden lg:block'>
+       <TimelineNav 
+        dates={sortedDates}
+        activeDate={activeDate}
+        onDateSelect={scrollToDate}
+        progress={scrollProgress}
+      />
         </div>
         </div>
       </div>

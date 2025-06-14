@@ -1,41 +1,24 @@
 "use client"
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 
 interface TimelineProps {
   dates: Date[]
   activeDate: Date
   onDateSelect: (date: Date) => void
+  progress: number
 }
 
-const TimelineNav: React.FC<TimelineProps> = ({ dates, activeDate, onDateSelect }) => {
+const TimelineNav: React.FC<TimelineProps> = ({ dates, activeDate, onDateSelect, progress }) => {
   const timelineRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const activeIndex = dates.findIndex(
-      date => date.getTime() === activeDate.getTime()
-    )
-    if (timelineRef.current) {
-      const progress = activeIndex / (dates.length - 1)
-      timelineRef.current.style.setProperty('--progress', `${progress * 100}%`)
-    }
-  }, [activeDate, dates])
 
   return (
     <div className="fixed right-5 top-1/2 transform -translate-y-1/2 h-[70vh] flex flex-col items-center">
       <div className="h-full w-0.5 bg-gray-600/30 relative mr-1" ref={timelineRef}>
         {/* Progress line */}
         <motion.div 
-          className="absolute left-0 top-0 w-full bg-indigo-500 origin-top"
-          initial={{ scaleY: 0 }}
-          animate={{ 
-            scaleY: 'var(--progress, 0)',
-            transition: { duration: 0.5, ease: "easeInOut" }
-          }}
-          style={{
-            height: '100%',
-            transformOrigin: 'top'
-          }}
+          className="absolute left-0 w-full bg-indigo-500"
+          style={{ height: `${progress}%` }}
         />
         
         {dates.map((date, index) => (
