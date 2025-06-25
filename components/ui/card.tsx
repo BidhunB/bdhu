@@ -45,13 +45,13 @@ const Card: React.FC<CardProps> = ({ title, description, pdfUrl, skills, preview
                     priority
                   />
                   <button 
-                    className="absolute bottom-4 right-6 lg:right-16  bg-white/80 p-1.5 rounded-lg z-10 hover:bg-white/100 transition-colors"
+                    className="absolute bottom-10 right-6 lg:right-8  bg-gray-800 p-1.5 rounded-lg hover:bg-gray-700 transition-colors"
                     onClick={(e) => {
                       e.stopPropagation();
                       toggleExpand(e);
                     }}
                   >
-                    <Maximize className="w-4 h-4" />
+                    <Maximize className="w-5 h-5" />
                   </button>
                 </div>
                       {isExpanded && (
@@ -72,7 +72,7 @@ const Card: React.FC<CardProps> = ({ title, description, pdfUrl, skills, preview
                 priority
               />
               <button 
-                className="absolute bottom-4 right-12 bg-white/80 p-2 rounded-lg  transition-colors"
+                className="absolute bottom-4 right-12 bg-gray-800 p-2 rounded-lg  transition-colors"
                 onClick={toggleExpand}
               >
                 <Minimize className="w-5 h-5" />
