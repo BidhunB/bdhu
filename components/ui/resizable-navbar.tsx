@@ -100,7 +100,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
       }}
       className={cn(
         "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start mt-4 rounded-lg bg-white/20 shadow-lg ring-1 ring-black/5 px-4 py-2 lg:flex ",
-        visible && "bg-white/80",
+        visible && "bg-",
         className
       )}
     >
@@ -162,7 +162,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
       }}
       className={cn(
         "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden",
-        visible && "bg-white/80 ",
+        visible && "bg- ",
         className
       )}
     >

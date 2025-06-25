@@ -1,6 +1,10 @@
 'use client';
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { IoLogoInstagram } from "react-icons/io";
+import { FaLinkedin } from "react-icons/fa6";
+
+
 import {
   Mail,
   Phone,
@@ -12,9 +16,11 @@ import {
   ArrowRight,
   Sparkles,
   CheckCircle,
+  BookMarked,
   Clock,
   Globe,
   Shield,
+  FileBadge,
   Zap
 } from 'lucide-react';
 
@@ -24,27 +30,27 @@ const contactMethods = [
     icon: Mail,
     title: "Email Us",
     description: "Get in touch via email",
-    value: "dhileepkumargm@21st.dev",
-    link: "mailto:dhileepkumargm@gmail.com",
+    value: "bidhunbibin4@gmail.com",
+    link: "mailto:bidhunbibin4@gmail.com",
     gradient: "from-blue-500/20 to-cyan-500/20",
     hoverColor: "blue"
   },
   {
-    icon: Phone,
-    title: "Call Us",
-    description: "Speak directly with our team",
-    value: "+1 (555) 123-4567",
-    link: "tel:+15551234567",
-    gradient: "from-green-500/20 to-emerald-500/20",
+    icon: IoLogoInstagram,
+    title: "Follow on",
+    description: "instagram",
+    value: "bidhunbibin",
+    link: "https://www.instagram.com/bidhunbibin?igsh=aXRjbnYxemVybzk4",
+    gradient: "from-[#833ab4] via-[#fd1d1d] to-[#fcb045]",
     hoverColor: "green"
   },
   {
-    icon: MapPin,
-    title: "Visit Us",
-    description: "Our headquarters",
-    value: "San Francisco, CA",
-    link: "#Europe, Middle East, and Africa (EMEA)",
-    gradient: "from-purple-500/20 to-pink-500/20",
+    icon: FaLinkedin ,
+    title: "Visit",
+    description: "My profile",
+    value: "Bidhun B",
+    link: "https://www.linkedin.com/in/bidhunb",
+    gradient: "from-green-400 to-blue-500",
     hoverColor: "purple"
   }
 ];
@@ -52,8 +58,8 @@ const contactMethods = [
 // Company Stats
 const companyStats = [
   { label: "Response Time", value: "< 2 hours", icon: Clock },
-  { label: "Global Clients", value: "500+", icon: Globe },
-  { label: "Security Level", value: "SOC 2", icon: Shield },
+  { label: "Repository", value: "20+", icon: BookMarked },
+  { label: "Certifications", value: "14", icon: FileBadge },
   { label: "Success Rate", value: "99.9%", icon: Zap }
 ];
 
@@ -174,19 +180,7 @@ export function PremiumContact() {
       >
         {/* HEADER */}
         <motion.div className="text-center mb-20" variants={fadeInUp}>
-          <motion.div
-            className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/[0.08] border border-white/[0.15] backdrop-blur-sm mb-6"
-            whileHover={{ scale: 1.05, borderColor: "rgba(255, 255, 255, 0.3)" }}
-          >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            >
-              <Sparkles className="h-4 w-4 text-indigo-300" />
-            </motion.div>
-            <span className="text-sm font-medium text-white/80">✨ Let's Connect</span>
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-          </motion.div>
+          
 
           <motion.h2
             className="text-4xl sm:text-6xl md:text-7xl font-bold mb-8 tracking-tight"
@@ -197,7 +191,7 @@ export function PremiumContact() {
             </span>
             <br />
             <motion.span
-              className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-rose-300"
+              className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500"
               animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               style={{ backgroundSize: '200% 200%' }}
@@ -210,7 +204,7 @@ export function PremiumContact() {
             className="text-xl sm:text-2xl text-white/60 max-w-4xl mx-auto leading-relaxed"
             variants={fadeInUp}
           >
-            Ready to transform your business with AI? Let's start a conversation about your goals and how we can help you achieve them.
+            Excited to bring your ideas to life? Let's connect and discuss how I can help turn your vision into reality.
           </motion.p>
         </motion.div>
 
@@ -253,9 +247,9 @@ export function PremiumContact() {
             variants={fadeInUp}
           >
             <div>
-              <h3 className="text-3xl font-bold text-white mb-4">Send us a message</h3>
+              <h3 className="text-3xl font-bold text-white mb-4">Send a message</h3>
               <p className="text-white/60 text-lg">
-                Tell us about your project and we'll get back to you within 24 hours.
+                Tell us about your project and I will get back to you within 24 hours.
               </p>
             </div>
 

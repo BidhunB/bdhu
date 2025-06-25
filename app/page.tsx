@@ -3,15 +3,17 @@ import React from 'react'
 import { NavbarDemo } from '../components/ui/resizable-navbar-demo'
 import { SparklesPreview } from '../components/ui/sparkledemo'
 import Hero from '@/components/ui/hero'
+import { PremiumContact } from '@/components/ui/premium-contact' // <-- Import here
 
 const Page = () => {
   return (
-    <main>
+    <main className='grid grid-cols-1 '>
       <div className="flex items-center justify-center">
-        <div className="absolute top-0 left-auto right-auto z-[99]">
-          <NavbarDemo />
-        </div>
+        <div className="fixed z-[99] top-0 ">
+                <NavbarDemo />
+              </div>
       </div>
+      <div>
       <div className="relative">
         {/* Base background layer */}
         <div
@@ -40,9 +42,14 @@ const Page = () => {
         <div className="relative z-60 flex items-center justify-center">
           <Hero />
         </div>
-        
+      </div>
       </div>
       
+      {/* Main content section */}
+      {/* Contact section continuation */}
+      <div className="relative top-[390px]">
+      <PremiumContact />  
+      </div>{/* <-- Add this line */}
     </main>
   )
 }

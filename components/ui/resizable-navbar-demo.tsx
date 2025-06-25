@@ -11,6 +11,7 @@ import {
   MobileNavMenu,
 } from "./resizable-navbar"
 import { useState } from "react"
+import { Component } from "@/components/ui/button-8";
 
 export function NavbarDemo() {
   const navItems = [
@@ -37,8 +38,8 @@ export function NavbarDemo() {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-end mr-3 gap-4">
-            <NavbarButton variant="gradient">Download CV</NavbarButton>
-            
+      <Component />
+  
           </div>
         </NavBody>
 
@@ -66,13 +67,7 @@ export function NavbarDemo() {
               </a>
             ))}
             <div className="flex w-full flex-col gap-4">
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="gradient"
-                className="w-full overflow-auto"
-              >
-                Download CV
-              </NavbarButton>
+               <Component />
             </div>
           </MobileNavMenu>
         </MobileNav>
