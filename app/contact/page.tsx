@@ -1,12 +1,6 @@
-"use client"
-import React from 'react'
+import React from 'react';
+import PremiumContact from '../../components/ui/premium-contact'; // Adjust path as needed
 
-const Contact = () => {
-  return (
-    <div>
-contacttt
-    </div>
-  )
+export default function ContactPage() {
+  return <PremiumContact />;
 }
-
-export default Contact
