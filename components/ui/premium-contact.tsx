@@ -113,15 +113,25 @@ export function PremiumContact() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-    setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-  };
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!validateForm()) return;
+  setIsSubmitting(true);
 
+  const response = await fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData),
+  });
+
+  setIsSubmitting(false);
+
+  if (response.ok) {
+    setIsSubmitted(true);
+  } else {
+    setErrors({ form: "Something went wrong. Please try again." });
+  }
+};
   return (
     <section className="relative py-32 bg-gradient-to-br from-black via-indigo-950/20 to-black text-white overflow-hidden">
       {/* Background Effects */}
