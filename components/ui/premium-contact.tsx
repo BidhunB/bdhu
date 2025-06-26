@@ -28,7 +28,7 @@ import {
 const contactMethods = [
   {
     icon: Mail,
-    title: "Email Us",
+    title: "Email",
     description: "Get in touch via email",
     value: "bidhunbibin4@gmail.com",
     link: "mailto:bidhunbibin4@gmail.com",
