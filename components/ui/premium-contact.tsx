@@ -59,8 +59,7 @@ const contactMethods = [
 const companyStats = [
   { label: "Response Time", value: "< 2 hours", icon: Clock },
   { label: "Repository", value: "20+", icon: BookMarked },
-  { label: "Certifications", value: "14", icon: FileBadge },
-  { label: "Success Rate", value: "99.9%", icon: Zap }
+  { label: "Certifications", value: "14", icon: FileBadge }
 ];
 
 // ✅ Correctly typed variants
@@ -228,7 +227,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             return (
               <motion.div
                 key={index}
-                className="text-center p-6 bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.15] group hover:bg-white/[0.08] transition-all"
+                className="text-center  p-6 bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.15] group hover:bg-white/[0.08] transition-all"
                 whileHover={{ scale: 1.05, y: -5 }}
                 variants={fadeInUp}
               >
@@ -457,17 +456,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               ))}
             </div>
 
-            {/* Additional Info */}
-            <motion.div
-              className="p-6 bg-gradient-to-br from-indigo-500/[0.08] to-purple-500/[0.08] backdrop-blur-xl rounded-2xl border border-indigo-400/30"
-              variants={fadeInUp}
-            >
-              <h4 className="text-lg font-semibold text-white mb-3">Quick Response Guarantee</h4>
-              <p className="text-white/80 text-sm leading-relaxed">
-                We pride ourselves on rapid response times. All inquiries are typically answered within 2 hours during business hours, 
-                and we'll schedule a call within 24 hours to discuss your project in detail.
-              </p>
-            </motion.div>
+           
           </motion.div>
         </div>
 
