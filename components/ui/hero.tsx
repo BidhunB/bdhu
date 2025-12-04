@@ -2,6 +2,9 @@
 
 import { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
+import { DownloadButton } from '@/components/ui/download-button';
+
+import HeroParticles from '@/components/ui/hero-particles';
 
 const Hero = () => {
   const typedRef = useRef<HTMLSpanElement | null>(null);
@@ -27,34 +30,38 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="w-full h-full relative top-56 pb-20 md:-left-20 lg:-left-44 sm:-left-10 left-0">
-      <div className="lg:px-16 px-8 flex flex-col-reverse sm:flex-row gap-6 justify-center items-center">
-        {/* Text Section */}
-        <div className="sm:text-left text-center text-white">
-          <h4 className="sm:text-2xl text-3xl font-semibold w-fit  p-3">
+    <section className="w-full relative h-screen min-h-[600px] overflow-hidden flex items-center">
+      {/* Full Screen Particle Animation */}
+      <HeroParticles 
+         imageSrc="/bdhu.png"
+         morphDelay={1300}
+      />
+
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-0 relative z-10 pointer-events-none">
+        {/* Text Section - Pointer events auto to allow interaction with buttons */}
+        <div className="text-center md:text-left text-neutral-900 dark:text-white max-w-2xl pointer-events-auto">
+          <h4 className="text-xl md:text-2xl font-semibold mb-4">
             Hello, My name is{' '}
-            <span className="text-orange-600 sm:text-2xl text-xl bg-slate-900/40 font-serif">BIDHUN</span>
+            <span className="text-orange-600 dark:text-orange-500 font-serif bg-orange-100 dark:bg-slate-900/40 px-2 py-1 rounded-md">BIDHUN</span>
           </h4>
 
-          <h1 className="mt-4 sm:text-4xl text-2xl">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
             I'm{' '}
             <span
               ref={typedRef}
-              className="typing libre-baskerville-bold text-orange-600 "
+              className="typing libre-baskerville-bold text-orange-600 dark:text-orange-500"
             ></span>
           </h1>
 
-          <p className="mt-4 text-lg capitalize">
+          <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 capitalize mb-8">
             Aspiring beginner front-end developer learning Next.js, React, and UI design with Figma.
           </p>
 
-          <div className="mt-6 flex sm:flex-row flex-col gap-4 sm:justify-start justify-center">
-            <button className="p-2 px-6 text-white font-semibold rounded-full outline-2 outline-green-500 hover:bg-green-600 transition ease-in-out delay-150">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <button className="px-8 py-3 text-white font-semibold rounded-full bg-green-600 hover:bg-green-700 transition-all shadow-lg hover:shadow-green-500/20">
               Hire Me
             </button>
-            <button className="p-2 px-6 text-white font-semibold rounded-full outline-2 outline-yellow-500 hover:bg-yellow-600 transition ease-in-out delay-150">
-              Download CV
-            </button>
+            <DownloadButton className="rounded-full px-8 py-6 text-base" />
           </div>
         </div>
       </div>

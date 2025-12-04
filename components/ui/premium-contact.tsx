@@ -132,11 +132,11 @@ const handleSubmit = async (e: React.FormEvent) => {
   }
 };
   return (
-    <section className="relative py-32 bg-gradient-to-br from-black via-indigo-950/20 to-black text-white overflow-hidden">
+    <section className="relative py-32 bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white overflow-hidden transition-colors duration-300">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.08] via-purple-500/[0.05] to-rose-500/[0.08]"
+          className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-purple-500/[0.05] to-rose-500/[0.05] dark:from-indigo-500/[0.08] dark:via-purple-500/[0.05] dark:to-rose-500/[0.08]"
           animate={{
             backgroundPosition: ['0% 0%', '100% 100%', '0% 0%']
           }}
@@ -161,7 +161,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           {[...Array(6)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-px h-40 bg-gradient-to-b from-transparent via-white/20 to-transparent"
+              className="absolute w-px h-40 bg-gradient-to-b from-transparent via-neutral-200 dark:via-white/20 to-transparent"
               style={{
                 left: `${20 + (i * 15)}%`,
                 top: `${25 + (i * 8)}%`,
@@ -195,7 +195,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             className="text-4xl sm:text-6xl md:text-7xl font-bold mb-8 tracking-tight"
             variants={fadeInUp}
           >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-white/80">
               Get in
             </span>
             <br />
@@ -210,7 +210,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           </motion.h2>
 
           <motion.p
-            className="text-xl sm:text-2xl text-white/60 max-w-4xl mx-auto leading-relaxed"
+            className="text-xl sm:text-2xl text-neutral-600 dark:text-white/60 max-w-4xl mx-auto leading-relaxed"
             variants={fadeInUp}
           >
             Excited to bring your ideas to life? Let's connect and discuss how I can help turn your vision into reality.
@@ -227,19 +227,19 @@ const handleSubmit = async (e: React.FormEvent) => {
             return (
               <motion.div
                 key={index}
-                className="text-center  p-6 bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.15] group hover:bg-white/[0.08] transition-all"
+                className="text-center p-6 bg-white/50 dark:bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-neutral-200 dark:border-white/[0.15] group hover:bg-white/80 dark:hover:bg-white/[0.08] transition-all shadow-sm"
                 whileHover={{ scale: 1.05, y: -5 }}
                 variants={fadeInUp}
               >
                 <motion.div
-                  className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-white/20 flex items-center justify-center mx-auto mb-3"
+                  className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-500/20 dark:to-purple-500/20 border border-neutral-200 dark:border-white/20 flex items-center justify-center mx-auto mb-3"
                   whileHover={{ rotateY: 180 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <Icon className="w-6 h-6 text-indigo-300" />
+                  <Icon className="w-6 h-6 text-indigo-600 dark:text-indigo-300" />
                 </motion.div>
-                <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-                <div className="text-white/60 text-sm">{stat.label}</div>
+                <div className="text-2xl font-bold text-neutral-900 dark:text-white mb-1">{stat.value}</div>
+                <div className="text-neutral-600 dark:text-white/60 text-sm">{stat.label}</div>
               </motion.div>
             );
           })}
@@ -256,8 +256,8 @@ const handleSubmit = async (e: React.FormEvent) => {
             variants={fadeInUp}
           >
             <div>
-              <h3 className="text-3xl font-bold text-white mb-4">Send a message</h3>
-              <p className="text-white/60 text-lg">
+              <h3 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">Send a message</h3>
+              <p className="text-neutral-600 dark:text-white/60 text-lg">
                 Tell us about your project and I will get back to you within 24 hours.
               </p>
             </div>
@@ -274,21 +274,21 @@ const handleSubmit = async (e: React.FormEvent) => {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-white/40" />
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400 dark:text-white/40" />
                       <input
                         type="text"
                         placeholder="Your Name"
                         value={formData.name}
                         onChange={(e) => handleInputChange('name', e.target.value)}
-                        className={`w-full pl-10 pr-4 py-4 bg-white/[0.08] border rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-indigo-400 transition-all ${
-                          errors.name ? 'border-red-400' : 'border-white/[0.15]'
+                        className={`w-full pl-10 pr-4 py-4 bg-white dark:bg-white/[0.08] border rounded-xl text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:outline-none focus:border-indigo-400 transition-all ${
+                          errors.name ? 'border-red-400' : 'border-neutral-200 dark:border-white/[0.15]'
                         }`}
                       />
                       {errors.name && (
                         <motion.p
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="text-red-400 text-sm mt-2"
+                          className="text-red-500 dark:text-red-400 text-sm mt-2"
                         >
                           {errors.name}
                         </motion.p>
@@ -296,21 +296,21 @@ const handleSubmit = async (e: React.FormEvent) => {
                     </div>
 
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-white/40" />
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400 dark:text-white/40" />
                       <input
                         type="email"
                         placeholder="Email Address"
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
-                        className={`w-full pl-10 pr-4 py-4 bg-white/[0.08] border rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-indigo-400 transition-all ${
-                          errors.email ? 'border-red-400' : 'border-white/[0.15]'
+                        className={`w-full pl-10 pr-4 py-4 bg-white dark:bg-white/[0.08] border rounded-xl text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:outline-none focus:border-indigo-400 transition-all ${
+                          errors.email ? 'border-red-400' : 'border-neutral-200 dark:border-white/[0.15]'
                         }`}
                       />
                       {errors.email && (
                         <motion.p
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="text-red-400 text-sm mt-2"
+                          className="text-red-500 dark:text-red-400 text-sm mt-2"
                         >
                           {errors.email}
                         </motion.p>
@@ -319,32 +319,32 @@ const handleSubmit = async (e: React.FormEvent) => {
                   </div>
 
                   <div className="relative">
-                    <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-white/40" />
+                    <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400 dark:text-white/40" />
                     <input
                       type="text"
                       placeholder="Company (Optional)"
                       value={formData.company}
                       onChange={(e) => handleInputChange('company', e.target.value)}
-                      className="w-full pl-10 pr-4 py-4 bg-white/[0.08] border border-white/[0.15] rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-indigo-400 transition-all"
+                      className="w-full pl-10 pr-4 py-4 bg-white dark:bg-white/[0.08] border border-neutral-200 dark:border-white/[0.15] rounded-xl text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:outline-none focus:border-indigo-400 transition-all"
                     />
                   </div>
 
                   <div className="relative">
-                    <MessageSquare className="absolute left-3 top-4 h-5 w-5 text-white/40" />
+                    <MessageSquare className="absolute left-3 top-4 h-5 w-5 text-neutral-400 dark:text-white/40" />
                     <textarea
                       placeholder="Tell us about your project..."
                       rows={6}
                       value={formData.message}
                       onChange={(e) => handleInputChange('message', e.target.value)}
-                      className={`w-full pl-10 pr-4 py-4 bg-white/[0.08] border rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-indigo-400 transition-all resize-none ${
-                        errors.message ? 'border-red-400' : 'border-white/[0.15]'
+                      className={`w-full pl-10 pr-4 py-4 bg-white dark:bg-white/[0.08] border rounded-xl text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:outline-none focus:border-indigo-400 transition-all resize-none ${
+                        errors.message ? 'border-red-400' : 'border-neutral-200 dark:border-white/[0.15]'
                       }`}
                     />
                     {errors.message && (
                       <motion.p
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-red-400 text-sm mt-2"
+                        className="text-red-500 dark:text-red-400 text-sm mt-2"
                       >
                         {errors.message}
                       </motion.p>
@@ -354,7 +354,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   <motion.button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full relative group overflow-hidden bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-medium py-4 px-6 rounded-xl transition-all disabled:opacity-50"
+                    className="w-full relative group overflow-hidden bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-medium py-4 px-6 rounded-xl transition-all disabled:opacity-50 shadow-lg"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -396,8 +396,8 @@ const handleSubmit = async (e: React.FormEvent) => {
                   >
                     <CheckCircle className="w-10 h-10 text-green-400" />
                   </motion.div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Message Sent!</h3>
-                  <p className="text-white/60 text-lg mb-6">
+                  <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">Message Sent!</h3>
+                  <p className="text-neutral-600 dark:text-white/60 text-lg mb-6">
                     Thank you for reaching out. We'll get back to you within 24 hours.
                   </p>
                   <motion.button
@@ -405,7 +405,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                       setIsSubmitted(false);
                       setFormData({ name: '', email: '', company: '', message: '' });
                     }}
-                    className="px-6 py-3 bg-white/[0.08] border border-white/[0.15] rounded-xl text-white hover:bg-white/[0.12] transition-all"
+                    className="px-6 py-3 bg-white dark:bg-white/[0.08] border border-neutral-200 dark:border-white/[0.15] rounded-xl text-neutral-900 dark:text-white hover:bg-neutral-50 dark:hover:bg-white/[0.12] transition-all"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -422,8 +422,8 @@ const handleSubmit = async (e: React.FormEvent) => {
             variants={fadeInUp}
           >
             <div>
-              <h3 className="text-3xl font-bold text-white mb-4">Other ways to reach us</h3>
-              <p className="text-white/60 text-lg">
+              <h3 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">Other ways to reach us</h3>
+              <p className="text-neutral-600 dark:text-white/60 text-lg">
                 Choose the method that works best for you.
               </p>
             </div>
@@ -433,7 +433,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 <motion.a
                   key={index}
                   href={method.link}
-                  className="block p-6 bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.15] hover:bg-white/[0.08] transition-all group"
+                  className="block p-6 bg-white/50 dark:bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-neutral-200 dark:border-white/[0.15] hover:bg-white/80 dark:hover:bg-white/[0.08] transition-all group shadow-sm"
                   variants={fadeInUp}
                   whileHover={{ scale: 1.02, y: -2 }}
                 >
@@ -446,11 +446,11 @@ const handleSubmit = async (e: React.FormEvent) => {
                       <method.icon className="w-7 h-7 text-white" />
                     </motion.div>
                     <div className="flex-1">
-                      <h4 className="text-xl font-semibold text-white mb-1">{method.title}</h4>
-                      <p className="text-white/60 text-sm mb-2">{method.description}</p>
-                      <p className="text-white font-medium">{method.value}</p>
+                      <h4 className="text-xl font-semibold text-neutral-900 dark:text-white mb-1">{method.title}</h4>
+                      <p className="text-neutral-600 dark:text-white/60 text-sm mb-2">{method.description}</p>
+                      <p className="text-neutral-900 dark:text-white font-medium">{method.value}</p>
                     </div>
-                    <ArrowRight className="w-5 h-5 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-5 h-5 text-neutral-400 dark:text-white/40 group-hover:text-neutral-900 dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
                   </div>
                 </motion.a>
               ))}
@@ -464,7 +464,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-white/20 rounded-full"
+            className="absolute w-2 h-2 bg-neutral-400/20 dark:bg-white/20 rounded-full"
             style={{
               left: `${10 + (i * 12)}%`,
               top: `${20 + (i * 10)}%`,

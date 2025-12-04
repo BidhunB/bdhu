@@ -5,13 +5,13 @@ import {
   NavItems,
   MobileNav,
   NavbarLogo,
-  NavbarButton,
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
 } from "./resizable-navbar"
 import { useState } from "react"
-import { Component } from "@/components/ui/button-8";
+import { DownloadButton } from "@/components/ui/download-button";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 
 export function NavbarDemo() {
   const navItems = [
@@ -37,9 +37,9 @@ export function NavbarDemo() {
         <NavBody>
           <NavbarLogo />
           <NavItems items={navItems} />
-          <div className="flex items-end mr-3 gap-4">
-      <Component />
-  
+          <div className="flex items-center mr-3 gap-2">
+            <ModeToggle />
+            <DownloadButton />
           </div>
         </NavBody>
 
@@ -61,13 +61,14 @@ export function NavbarDemo() {
                 key={`mobile-link-${idx}`}
                 href={item.link}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-black"
+                className="relative text-neutral-900 dark:text-white font-medium"
               >
                 <span className="block">{item.name}</span>
               </a>
             ))}
-            <div className="flex w-full flex-col gap-4">
-               <Component />
+            <div className="flex w-full flex-row gap-4 pt-4">
+               <ModeToggle />
+               <DownloadButton className="w-full" />
             </div>
           </MobileNavMenu>
         </MobileNav>

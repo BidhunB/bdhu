@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Maximize, Minimize } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface CardProps {
   title: string;
@@ -10,10 +11,11 @@ interface CardProps {
   pdfUrl?: string;
   skills: string[];
   previewUrl?: string;
-  date: Date;  // Add this new prop
+  date: Date;
+  className?: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, description, pdfUrl, skills, previewUrl, date }) => {
+const Card: React.FC<CardProps> = ({ title, description, pdfUrl, skills, previewUrl, date, className }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = (e: React.MouseEvent) => {
@@ -29,34 +31,34 @@ const Card: React.FC<CardProps> = ({ title, description, pdfUrl, skills, preview
     }).format(date);
   };
   return (
-    <div className="relative overflow-hidden m-10 rounded-lg bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500 p-[1px]">
-      <div className="flex flex-col lg:h-[400px] md:flex-row h-full bg-gray-700 rounded-lg">
+    <div className={cn("relative overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm transition-all hover:shadow-md", className)}>
+      <div className="flex flex-col lg:h-[400px] md:flex-row h-full rounded-lg overflow-hidden">
           {/* Preview Section */}
-          <div className="w-full md:w-[40%] lg:w-[45%] aspect-[4/3] overflow-hidden rounded-t-lg md:rounded-t-none md:rounded-l-lg">
+          <div className="w-full md:w-[40%] lg:w-[45%] aspect-[4/3] relative bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center overflow-hidden">
             {previewUrl ? (
               <>
-                <div className="relative h-full w-full">
+                <div className="relative h-full w-full p-4">
                   <Image 
                     src={previewUrl} 
                     alt={`Preview of ${title}`}
                     fill
-                    className="object-contain p-2" // Changed from m-3 to p-2
+                    className="object-contain"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw"
                     priority
                   />
                   <button 
-                    className="absolute bottom-10 right-6 lg:right-8  bg-gray-800 p-1.5 rounded-lg hover:bg-gray-700 transition-colors"
+                    className="absolute bottom-4 right-4 bg-white/80 dark:bg-black/50 p-2 rounded-full hover:bg-white dark:hover:bg-black transition-colors shadow-sm backdrop-blur-sm"
                     onClick={(e) => {
                       e.stopPropagation();
                       toggleExpand(e);
                     }}
                   >
-                    <Maximize className="w-5 h-5" />
+                    <Maximize className="w-4 h-4 text-neutral-700 dark:text-neutral-200" />
                   </button>
                 </div>
                       {isExpanded && (
                         <div 
-            className="fixed inset-0  z-50 flex items-center justify-center p-6"
+            className="fixed inset-0  z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm"
             onClick={toggleExpand}
           >
             <div 
@@ -67,64 +69,67 @@ const Card: React.FC<CardProps> = ({ title, description, pdfUrl, skills, preview
                 src={previewUrl}
                 alt={`Expanded view of ${title}`}
                 fill
-                className="object-contain rounded-md shadow-lg"
+                className="object-contain rounded-md"
                 quality={100}
                 priority
               />
               <button 
-                className="absolute bottom-4 right-12 bg-gray-800 p-2 rounded-lg  transition-colors"
+                className="absolute top-4 right-4 bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors text-white"
                 onClick={toggleExpand}
               >
-                <Minimize className="w-5 h-5" />
+                <Minimize className="w-6 h-6" />
               </button>
             </div>
           </div>
               )}
             </>
           ) : (
-            <div className="h-full w-full bg-gray-100 flex items-center justify-center text-gray-400">
+            <div className="text-neutral-400 dark:text-neutral-500 text-sm">
               No Preview
             </div>
           )}
         </div>
-{/* Separator Line */}
-<div className="hidden md:block w-[1px] my-5 bg-gradient-to-tl from-orange-400 via-cyan-500 to-green-600" />
+{/* Separator Line (Mobile Only) */}
+<div className="md:hidden h-[1px] w-full bg-neutral-200 dark:bg-neutral-800" />
 
          {/* Content Section */}
-        <div className="flex-1 p-4 md:p-6 relative">
+        <div className="flex-1 p-6 flex flex-col relative">
           {/* Date Badge */}
-          <div className="absolute top-4 left-4 px-3 py-1 bg-gray-800/50 rounded-full">
-            <time className="text-xs text-gray-300">
+          <div className="absolute top-6 left-6">
+            <time className="text-xs font-medium text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-md">
               {formatDate(date)}
             </time>
           </div>
 
-          {/* Add margin-top to title to accommodate date */}
-          <h2 className="text-xl md:text-2xl font-bold mb-2 mt-12">{title}</h2>
+          {/* Title */}
+          <h2 className="text-xl md:text-2xl font-bold mb-3 mt-8 text-neutral-900 dark:text-neutral-100">{title}</h2>
           
-          <p className="text-sm md:text-base text-gray-600 mb-4">{description}</p>
+          <p className="text-sm md:text-base text-neutral-600 dark:text-neutral-400 mb-6 flex-grow leading-relaxed">{description}</p>
           
-          <div className="flex flex-wrap gap-1.5 md:gap-2 mb-4">
-            {skills.map((skill, index) => (
-              <span 
-                key={index}
-                className="px-2 md:px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs md:text-sm"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
+          <div className="mt-auto">
+            <div className="flex flex-wrap gap-2 mb-6">
+                {skills.map((skill, index) => (
+                <span 
+                    key={index}
+                    className="px-2.5 py-0.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 rounded-full text-xs font-medium border border-neutral-200 dark:border-neutral-700"
+                >
+                    {skill}
+                </span>
+                ))}
+            </div>
 
-          {pdfUrl && (
-            <Link 
-              href={pdfUrl}
-              className="inline-flex items-center px-3 md:px-4 py-1.5 md:py-2 bg-blue-600 text-white text-sm md:text-base rounded-lg hover:bg-blue-700 transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Download <span className="ml-2">↓</span>
-            </Link>
-          )}
+            {pdfUrl && (
+                <Link 
+                href={pdfUrl}
+                className="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors group"
+                target="_blank"
+                rel="noopener noreferrer"
+                >
+                View Certificate 
+                <span className="ml-1 group-hover:translate-x-0.5 transition-transform">→</span>
+                </Link>
+            )}
+          </div>
         </div>
       </div>
     </div>
