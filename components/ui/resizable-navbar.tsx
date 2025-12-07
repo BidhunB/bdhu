@@ -1,5 +1,6 @@
 "use client"
 import { cn } from "@/lib/utils"
+import { useTheme } from "next-themes"
 import { IconMenu2, IconX } from "@tabler/icons-react"
 import {
   motion,
@@ -88,15 +89,14 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         y: visible ? 20 : 0,
       }}
       transition={{
-        type: "spring",
-        stiffness: 200,
-        damping: 50,
+        duration: 0.3,
+        ease: "easeInOut",
       }}
       style={{
         minWidth: "800px",
       }}
       className={cn(
-        "relative mx-auto hidden w-full max-w-5xl flex-row items-center justify-between self-start rounded-full border border-transparent bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md px-4 py-2 shadow-sm lg:flex transition-all duration-300",
+        "relative mx-auto hidden w-full max-w-5xl flex-row items-center justify-between self-start rounded-full border border-transparent bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md px-4 py-2 shadow-sm lg:flex",
         visible && "border-neutral-200 dark:border-neutral-800 shadow-lg",
         className
       )}
@@ -218,18 +218,35 @@ export const MobileNavToggle = ({
 }
 
 export const NavbarLogo = () => {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
   return (
     <a
       href="/"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
-      <Image
-        src="/logo.png"
-        alt="Logo"
-        width={100}
-        height={40}
-        className="h-10 w-auto object-contain"
-      />
+      {mounted ? (
+        <Image
+          src={resolvedTheme === "dark" ? "/logo2.png" : "/logo.png"}
+          alt="Logo"
+          width={100}
+          height={40}
+          className="h-10 w-auto object-contain"
+        />
+      ) : (
+        <Image
+          src="/logo.png"
+          alt="Logo"
+          width={100}
+          height={40}
+          className="h-10 w-auto object-contain"
+        />
+      )}
     </a>
   )
 }

@@ -3,6 +3,8 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { IoLogoInstagram } from "react-icons/io";
 import { FaLinkedin } from "react-icons/fa6";
+import DotGrid from './DotGrid';
+import { useTheme } from "next-themes";
 
 
 import {
@@ -86,6 +88,9 @@ export function PremiumContact() {
     message: ''
   });
 
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -134,50 +139,22 @@ const handleSubmit = async (e: React.FormEvent) => {
   return (
     <section className="relative py-32 bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white overflow-hidden transition-colors duration-300">
       {/* Background Effects */}
-      <div className="absolute inset-0">
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-purple-500/[0.05] to-rose-500/[0.05] dark:from-indigo-500/[0.08] dark:via-purple-500/[0.05] dark:to-rose-500/[0.08]"
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%', '0% 0%']
-          }}
-          transition={{
-            duration: 35,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          style={{ backgroundSize: '400% 400%' }}
+      {/* Background Effects */}
+      <div className="absolute inset-0 z-0 opacity-50">
+        <DotGrid
+          dotSize={2}
+          gap={20}
+          baseColor={isDark ? "#333333" : "#e5e5e5"}
+          activeColor={isDark ? "#ffffff" : "#000000"}
+          proximity={200}
+          shockRadius={200}
+          shockStrength={5}
+          resistance={750}
+          returnDuration={1.5}
+          className="w-full h-full"
         />
-        <motion.div
-          className="absolute top-1/3 left-1/5 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl"
-          animate={{ x: [0, 200, 0], y: [0, 100, 0], scale: [1, 1.3, 1] }}
-          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/5 w-80 h-80 bg-rose-400/10 rounded-full blur-3xl"
-          animate={{ x: [0, -150, 0], y: [0, -80, 0], scale: [1, 1.2, 1] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <div className="absolute inset-0">
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-px h-40 bg-gradient-to-b from-transparent via-neutral-200 dark:via-white/20 to-transparent"
-              style={{
-                left: `${20 + (i * 15)}%`,
-                top: `${25 + (i * 8)}%`,
-                transform: `rotate(${30 + i * 20}deg)`
-              }}
-              animate={{ opacity: [0.2, 0.8, 0.2], scaleY: [1, 1.5, 1] }}
-              transition={{
-                duration: 3 + i * 0.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.5
-              }}
-            />
-          ))}
-        </div>
       </div>
+
 
       <motion.div
         ref={containerRef}
@@ -218,32 +195,8 @@ const handleSubmit = async (e: React.FormEvent) => {
         </motion.div>
 
         {/* STATS BAR */}
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20"
-          variants={fadeInUp}
-        >
-          {companyStats.map((stat, index) => {
-            const Icon = stat.icon;
-            return (
-              <motion.div
-                key={index}
-                className="text-center p-6 bg-white/50 dark:bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-neutral-200 dark:border-white/[0.15] group hover:bg-white/80 dark:hover:bg-white/[0.08] transition-all shadow-sm"
-                whileHover={{ scale: 1.05, y: -5 }}
-                variants={fadeInUp}
-              >
-                <motion.div
-                  className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-500/20 dark:to-purple-500/20 border border-neutral-200 dark:border-white/20 flex items-center justify-center mx-auto mb-3"
-                  whileHover={{ rotateY: 180 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <Icon className="w-6 h-6 text-indigo-600 dark:text-indigo-300" />
-                </motion.div>
-                <div className="text-2xl font-bold text-neutral-900 dark:text-white mb-1">{stat.value}</div>
-                <div className="text-neutral-600 dark:text-white/60 text-sm">{stat.label}</div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+        
+        
 
         
         

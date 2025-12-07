@@ -3,22 +3,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 
-interface Point {
-  x: number;
-  y: number;
-}
-
 class UnifiedParticle {
   x: number;
   y: number;
-  targetX: number | null;
-  targetY: number | null;
+  originX: number;
+  originY: number;
   vx: number;
   vy: number;
   size: number;
   color: string;
-  baseColor: string; 
-  currentColor: string; 
   friction: number;
   ease: number;
   canvasWidth: number;
@@ -26,136 +19,90 @@ class UnifiedParticle {
   opacity: number;
   opacitySpeed: number;
   opacityDirection: number;
-  isPortrait: boolean;
-  themeRgb: string;
 
-  constructor(width: number, height: number, theme: string, startX?: number, startY?: number) {
+  constructor(width: number, height: number, theme: string, x: number, y: number, color: string) {
     this.canvasWidth = width;
     this.canvasHeight = height;
     
-    // If start position provided, use it. Otherwise random.
-    this.x = startX !== undefined ? startX : Math.random() * width;
-    this.y = startY !== undefined ? startY : Math.random() * height;
+    this.x = x;
+    this.y = y;
+    this.originX = x;
+    this.originY = y;
     
-    this.targetX = null;
-    this.targetY = null;
-    this.isPortrait = false;
+    this.vx = 0;
+    this.vy = 0;
     
-    // Sparkles style movement: EXTREMELY subtle sway
-    this.vx = (Math.random() - 0.5) * 0.05; 
-    this.vy = (Math.random() - 0.5) * 0.05;
+    // Small, crisp dots (Constellation look)
+    this.size = Math.random() * 1 + 1; // 1px - 2px
     
-    // Sparkles style size: 1-2px (Crisp constellation look)
-    this.size = Math.random() * 1 + 1;
-    
-    // Twinkle opacity
-    this.opacity = Math.random() * 0.9 + 0.1;
-    this.opacitySpeed = Math.random() * 0.02 + 0.005;
+    this.opacity = 1;
+    this.opacitySpeed = Math.random() * 0.005;
     this.opacityDirection = Math.random() > 0.5 ? 1 : -1;
     
-    const baseRgb = theme === 'dark' ? '255, 255, 255' : '0, 0, 0';
-    this.themeRgb = baseRgb;
-    this.baseColor = `rgba(${baseRgb}, ${this.opacity})`;
-    this.currentColor = this.baseColor;
-    this.color = this.baseColor;
-
-    this.friction = 0.94; // Smooth glide
-    this.ease = 0.02; // Gentle pull
+    this.color = color;
+    this.friction = 0.90; 
+    this.ease = 0.05; 
   }
 
-  setTarget(x: number, y: number, color: string) {
-    this.targetX = x;
-    this.targetY = y;
-    this.baseColor = color; 
-    this.isPortrait = true;
-  }
-
-  update(mouse: { x: number, y: number, radius: number }, isMorphing: boolean) {
+  update(mouse: { x: number, y: number, radius: number }) {
     const dxMouse = mouse.x - this.x;
     const dyMouse = mouse.y - this.y;
     const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-    let isInteracting = false;
 
     // Mouse Interaction (Repel)
     if (distMouse < mouse.radius) {
-      isInteracting = true;
       const forceDirectionX = dxMouse / distMouse;
       const forceDirectionY = dyMouse / distMouse;
       const force = (mouse.radius - distMouse) / mouse.radius;
       
-      const repelStrength = 1.0; // Stronger interaction restored
+      const repelStrength = 2.0; 
       this.vx -= forceDirectionX * force * repelStrength;
       this.vy -= forceDirectionY * force * repelStrength;
     }
 
-    if (isMorphing && this.targetX !== null && this.targetY !== null) {
-      this.currentColor = this.baseColor; 
-      this.opacity += (1 - this.opacity) * 0.05;
-      
-      const dx = this.targetX - this.x;
-      const dy = this.targetY - this.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      // Only snap if NOT interacting with mouse
-      if (!isInteracting && distance < 0.5) {
-          this.x = this.targetX;
-          this.y = this.targetY;
-          this.vx = 0;
-          this.vy = 0;
-      } else {
-          // Seek target
-          const forceX = dx * this.ease;
-          const forceY = dy * this.ease;
-          this.vx += forceX;
-          this.vy += forceY;
-          this.vx *= this.friction; 
-          this.vy *= this.friction;
-      }
-      
-    } else {
-      this.opacity += this.opacitySpeed * this.opacityDirection;
-      if (this.opacity > 1) {
-          this.opacity = 1;
-          this.opacityDirection = -1;
-      } else if (this.opacity < 0.1) {
-          this.opacity = 0.1;
-          this.opacityDirection = 1;
-      }
-      
-      this.currentColor = `rgba(${this.themeRgb}, ${this.opacity})`;
-
-      this.vx += (Math.random() - 0.5) * 0.01;
-      this.vy += (Math.random() - 0.5) * 0.01;
-
-      if (this.x < 0) this.x = this.canvasWidth;
-      if (this.x > this.canvasWidth) this.x = 0;
-      if (this.y < 0) this.y = this.canvasHeight;
-      if (this.y > this.canvasHeight) this.y = 0;
-      
-      this.vx *= this.friction;
-      this.vy *= this.friction;
-    }
+    // Return to origin
+    const dx = this.originX - this.x;
+    const dy = this.originY - this.y;
+    
+    const forceX = dx * this.ease;
+    const forceY = dy * this.ease;
+    
+    this.vx += forceX;
+    this.vy += forceY;
+    
+    this.vx *= this.friction;
+    this.vy *= this.friction;
 
     this.x += this.vx;
     this.y += this.vy;
+    
+    // Subtle breathing
+    this.opacity += this.opacitySpeed * this.opacityDirection;
+    if (this.opacity > 1) {
+        this.opacity = 1;
+        this.opacityDirection = -1;
+    } else if (this.opacity < 0.8) {
+        this.opacity = 0.8;
+        this.opacityDirection = 1;
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    ctx.fillStyle = this.currentColor;
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = this.opacity;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
+    ctx.globalAlpha = 1;
   }
 }
 
 interface HeroParticlesProps {
   imageSrc?: string;
-  morphDelay?: number;
 }
 
 const HeroParticles: React.FC<HeroParticlesProps> = ({
   imageSrc = "/bdhu.png",
-  morphDelay = 2000,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -192,7 +139,6 @@ const HeroParticles: React.FC<HeroParticlesProps> = ({
 
     let particles: UnifiedParticle[] = [];
     let animationFrameId: number;
-    let isMorphing = false;
     let mouse = { x: -9999, y: -9999, radius: 100 };
 
     const image = new Image();
@@ -226,7 +172,7 @@ const HeroParticles: React.FC<HeroParticlesProps> = ({
 
       particles = [];
 
-      // 1. Create Portrait Particles (Randomly distributed in Right 60%)
+      // Create Portrait Particles ONLY (No Ambient)
       for (let y = 0; y < canvas.height; y += gap) {
         for (let x = 0; x < canvas.width; x += gap) {
           const index = (y * canvas.width + x) * 4;
@@ -238,25 +184,12 @@ const HeroParticles: React.FC<HeroParticlesProps> = ({
              const blue = imageData.data[index + 2];
              const color = `rgba(${red}, ${green}, ${blue}, ${alpha/255})`;
              
-             // Random spawn in the right 60% of the screen
-             // No clustering, no hard line
-             const spawnX = (Math.random() * 0.6 + 0.4) * canvas.width;
-             const spawnY = Math.random() * canvas.height;
-             
-             const p = new UnifiedParticle(canvas.width, canvas.height, resolvedTheme || 'light', spawnX, spawnY);
-             p.setTarget(x, y, color);
-             particles.push(p);
+             // Spawn directly at target
+             particles.push(new UnifiedParticle(canvas.width, canvas.height, resolvedTheme || 'light', x, y, color));
           }
         }
       }
 
-      // 2. Create Ambient Particles (Spawn ANYWHERE)
-      const ambientBuffer = 600; 
-      for (let i = 0; i < ambientBuffer; i++) {
-          particles.push(new UnifiedParticle(canvas.width, canvas.height, resolvedTheme || 'light'));
-      }
-
-      setTimeout(() => { isMorphing = true; }, morphDelay);
       animate();
     };
 
@@ -264,7 +197,7 @@ const HeroParticles: React.FC<HeroParticlesProps> = ({
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       particles.forEach(p => {
-          p.update(mouse, isMorphing);
+          p.update(mouse);
           p.draw(ctx);
       });
       
@@ -287,7 +220,7 @@ const HeroParticles: React.FC<HeroParticlesProps> = ({
       canvas.removeEventListener('mousemove', handleMouseMove);
       canvas.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [dimensions, imageSrc, morphDelay, resolvedTheme, mounted]);
+  }, [dimensions, imageSrc, resolvedTheme, mounted]);
 
   return (
     <div ref={containerRef} className="absolute inset-0 w-full h-full pointer-events-auto z-0">
