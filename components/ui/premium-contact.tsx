@@ -140,14 +140,14 @@ const handleSubmit = async (e: React.FormEvent) => {
     <section className="relative py-32 bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white overflow-hidden transition-colors duration-300">
       {/* Background Effects */}
       {/* Background Effects */}
-      <div className="absolute inset-0 z-0 opacity-50">
+      <div className="absolute inset-0 z-0 opacity-40">
         <DotGrid
           dotSize={2}
-          gap={20}
-          baseColor={isDark ? "#333333" : "#e5e5e5"}
-          activeColor={isDark ? "#ffffff" : "#000000"}
-          proximity={200}
-          shockRadius={200}
+          gap={15}
+          baseColor={isDark ? "#222222" : "#e5e5e5"}
+          activeColor="#5227FF"
+          proximity={120}
+          shockRadius={250}
           shockStrength={5}
           resistance={750}
           returnDuration={1.5}
@@ -413,28 +413,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           </motion.div>
         </div>
 
-        {/* Floating Elements */}
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-neutral-400/20 dark:bg-white/20 rounded-full"
-            style={{
-              left: `${10 + (i * 12)}%`,
-              top: `${20 + (i * 10)}%`,
-            }}
-            animate={{
-              y: [0, -40, 0],
-              opacity: [0.2, 0.8, 0.2],
-              scale: [1, 2, 1],
-            }}
-            transition={{
-              duration: 4 + i * 0.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 0.6,
-            }}
-          />
-        ))}
+
       
       </motion.div>
     </section>

@@ -10,6 +10,7 @@ import {
 } from "framer-motion"
 import React, { useRef, useState } from "react"
 import Image from "next/image"
+import StarBorder from "./star-border"
 
 interface NavbarProps {
   children: React.ReactNode
@@ -83,7 +84,10 @@ export const Navbar = ({ children, className }: NavbarProps) => {
 
 export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
-    <motion.div
+    <StarBorder
+      as={motion.div}
+      color="cyan"
+      speed="5s"
       animate={{
         width: visible ? "40%" : "100%",
         y: visible ? 20 : 0,
@@ -96,13 +100,14 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         minWidth: "800px",
       }}
       className={cn(
-        "relative mx-auto hidden w-full max-w-5xl flex-row items-center justify-between self-start rounded-full border border-transparent bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md px-4 py-2 shadow-sm lg:flex",
-        visible && "border-neutral-200 dark:border-neutral-800 shadow-lg",
+        "relative mx-auto hidden w-full max-w-5xl flex-row items-center justify-between self-start rounded-full shadow-sm lg:flex p-0",
+        visible && "shadow-lg",
         className
       )}
+      innerClassName="flex flex-row items-center justify-between w-full h-full bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md px-4 py-2 rounded-full"
     >
       {children}
-    </motion.div>
+    </StarBorder>
   )
 }
 
