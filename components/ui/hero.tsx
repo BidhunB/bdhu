@@ -34,7 +34,6 @@ const Hero = () => {
       {/* Full Screen Particle Animation */}
       <HeroParticles 
          imageSrc="/bdhu.png"
-         morphDelay={1300}
       />
 
       <div className="max-w-7xl mx-auto w-full px-4 md:px-0 relative z-10 pointer-events-none">
