@@ -7,7 +7,9 @@ const Hero = () => {
   return (
     <section className="relative flex items-center h-screen min-h-[600px] overflow-hidden">
       {/* Background */}
-      <HeroParticles imageSrc="/bdhu.png" />
+      <div className="hidden md:block absolute inset-0 z-0">
+        <HeroParticles imageSrc="/bdhu.png" />
+      </div>
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-0">
@@ -47,7 +49,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <a
               href="#contact"
-              className="px-8 py-3 font-semibold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition shadow-lg hover:shadow-blue-500/30 text-center"
+              className="px-8 py-3 font-semibold text-white bg-gradient-to-r from-blue-800 to-purple-800 rounded-full hover:bg-blue-700 transition shadow-lg hover:shadow-blue-500/30 text-center"
             >
               Contact Me
             </a>

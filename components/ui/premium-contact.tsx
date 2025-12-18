@@ -177,7 +177,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             </span>
             <br />
             <motion.span
-              className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500"
+              className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-purple-500"
               animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               style={{ backgroundSize: '200% 200%' }}
