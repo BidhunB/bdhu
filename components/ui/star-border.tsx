@@ -1,4 +1,5 @@
 import React from 'react';
+import { cn } from "@/lib/utils";
 
 type StarBorderProps<T extends React.ElementType> = React.ComponentPropsWithoutRef<T> & {
   as?: T;
@@ -24,7 +25,7 @@ const StarBorder = <T extends React.ElementType = 'button'>({
 
   return (
     <Component
-      className={`relative inline-block overflow-hidden rounded-[20px] ${className}`}
+      className={cn("relative inline-block overflow-hidden rounded-[20px]", className)}
       {...(rest as any)}
       style={{
         padding: `${thickness}px 0`,

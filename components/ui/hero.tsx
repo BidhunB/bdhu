@@ -1,67 +1,66 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import Typed from 'typed.js';
-import { DownloadButton } from '@/components/ui/download-button';
-
 import HeroParticles from '@/components/ui/hero-particles';
+import { LayoutTextFlip } from '@/components/ui/layout-text-flip';
 
 const Hero = () => {
-  const typedRef = useRef<HTMLSpanElement | null>(null);
-
-  useEffect(() => {
-    if (typedRef.current) {
-      const typed = new Typed(typedRef.current, {
-        strings: [
-          'a Web Developer',
-          'a Frontend Developer',
-          'exploring Next.js & React',
-          'practicing UI Design in Figma',
-          'learning TypeScript',
-          'exploring Web Development',
-        ],
-        typeSpeed: 100,
-        backSpeed: 100,
-        loop: true,
-      });
-
-      return () => typed.destroy(); // Cleanup on unmount
-    }
-  }, []);
-
   return (
-    <section className="w-full relative h-screen min-h-[600px] overflow-hidden flex items-center">
-      {/* Full Screen Particle Animation */}
-      <HeroParticles 
-         imageSrc="/bdhu.png"
-      />
+    <section className="relative flex items-center h-screen min-h-[600px] overflow-hidden">
+      {/* Background */}
+      <HeroParticles imageSrc="/bdhu.png" />
 
-      <div className="max-w-7xl mx-auto w-full px-4 md:px-0 relative z-10 pointer-events-none">
-        {/* Text Section - Pointer events auto to allow interaction with buttons */}
-        <div className="text-center md:text-left text-neutral-900 dark:text-white max-w-2xl pointer-events-auto">
-          <h4 className="text-xl md:text-2xl font-semibold mb-4">
-            Hello, My name is{' '}
-            <span className="text-orange-600 dark:text-orange-500 font-serif bg-orange-100 dark:bg-slate-900/40 px-2 py-1 rounded-md">BIDHUN</span>
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-0">
+        <div className="max-w-2xl text-center md:text-left text-neutral-900 dark:text-white">
+          
+          {/* Intro */}
+          <h4 className="mb-4 text-xl md:text-2xl text-neutral-500 dark:text-neutral-400">
+            Hi, I’m{' '}
+            <span className="font-semibold text-blue-600 dark:text-blue-500">
+              Bidhun
+            </span>
           </h4>
 
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-            I'm{' '}
-            <span
-              ref={typedRef}
-              className="typing libre-baskerville-bold text-orange-600 dark:text-orange-500"
-            ></span>
+          {/* Headline */}
+          <h1 className="mb-6 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            I’m{' '}
+            <span className="text-blue-600 dark:text-blue-500 inline-block">
+              <LayoutTextFlip
+                text=""
+                words={[
+                  'a Frontend Developer',
+                  'UI-focused',
+                  'building with React & Next.js',
+                  'turning design into code',
+                ]}
+              />
+            </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 capitalize mb-8">
-            Aspiring beginner front-end developer learning Next.js, React, and UI design with Figma.
+          {/* Description */}
+          <p className="mb-8 text-base md:text-lg text-neutral-600 dark:text-neutral-300">
+            UI-focused frontend developer building responsive, user-friendly web
+            interfaces using React, Next.js, and Figma.
           </p>
 
+          {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <button className="px-8 py-3 text-white font-semibold rounded-full bg-green-600 hover:bg-green-700 transition-all shadow-lg hover:shadow-green-500/20">
-              Hire Me
-            </button>
-            <DownloadButton className="rounded-full px-8 py-6 text-base" />
+            <a
+              href="#contact"
+              className="px-8 py-3 font-semibold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition shadow-lg hover:shadow-blue-500/30 text-center"
+            >
+              Contact Me
+            </a>
+
+            <a
+              href="/Bidhun_CV.pdf"
+              download
+              className="px-8 py-3 font-semibold rounded-full border border-blue-600 text-blue-600 dark:text-blue-500 hover:border-blue-700 transition shadow-lg hover:shadow-blue-500/20 text-center"
+            >
+              Download CV
+            </a>
           </div>
+
         </div>
       </div>
     </section>
