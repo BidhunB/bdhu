@@ -47,10 +47,12 @@ class UnifiedParticle {
   update(mouse: { x: number, y: number, radius: number }) {
     const dxMouse = mouse.x - this.x;
     const dyMouse = mouse.y - this.y;
-    const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+    const distMouseSq = dxMouse * dxMouse + dyMouse * dyMouse;
+    const mouseRadiusSq = mouse.radius * mouse.radius;
 
-    // Mouse Interaction (Repel)
-    if (distMouse < mouse.radius) {
+    // Mouse Interaction (Repel) - Optimized to avoid sqrt
+    if (distMouseSq < mouseRadiusSq) {
+      const distMouse = Math.sqrt(distMouseSq);
       const forceDirectionX = dxMouse / distMouse;
       const forceDirectionY = dyMouse / distMouse;
       const force = (mouse.radius - distMouse) / mouse.radius;
@@ -64,17 +66,27 @@ class UnifiedParticle {
     const dx = this.originX - this.x;
     const dy = this.originY - this.y;
     
-    const forceX = dx * this.ease;
-    const forceY = dy * this.ease;
+    // Optimization: If particle is near origin, not moving, and not near mouse, skip physics
+    const distOriginSq = dx * dx + dy * dy;
+    const isMoving = Math.abs(this.vx) > 0.01 || Math.abs(this.vy) > 0.01;
     
-    this.vx += forceX;
-    this.vy += forceY;
-    
-    this.vx *= this.friction;
-    this.vy *= this.friction;
+    if (isMoving || distOriginSq > 0.01) {
+        const forceX = dx * this.ease;
+        const forceY = dy * this.ease;
+        
+        this.vx += forceX;
+        this.vy += forceY;
+        
+        this.vx *= this.friction;
+        this.vy *= this.friction;
 
-    this.x += this.vx;
-    this.y += this.vy;
+        this.x += this.vx;
+        this.y += this.vy;
+    } else {
+        // Snap to grid to prevent micro-jitters
+        this.x = this.originX;
+        this.y = this.originY;
+    }
     
     // Subtle breathing
     this.opacity += this.opacitySpeed * this.opacityDirection;
@@ -168,7 +180,7 @@ const HeroParticles: React.FC<HeroParticlesProps> = ({
       offCtx.drawImage(image, startX, startY, drawWidth, drawHeight);
       
       const imageData = offCtx.getImageData(0, 0, canvas.width, canvas.height);
-      const gap = 6; 
+      const gap = 6;   
 
       particles = [];
 

@@ -1,7 +1,12 @@
 'use client';
 
-import HeroParticles from '@/components/ui/hero-particles';
+import dynamic from 'next/dynamic';
 import { LayoutTextFlip } from '@/components/ui/layout-text-flip';
+
+const HeroParticles = dynamic(() => import('@/components/ui/hero-particles'), { 
+  ssr: false,
+  loading: () => <div className="absolute inset-0 bg-transparent" />
+});
 
 const Hero = () => {
   return (
