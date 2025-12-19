@@ -2,6 +2,7 @@
 import React from 'react'
 import Hero from '@/components/ui/hero'
 import { PremiumContact } from '@/components/ui/premium-contact'
+import ProjectSection from '@/components/project-section'
 
 const Page = () => {
   return (
@@ -22,6 +23,8 @@ const Page = () => {
           <Hero />
         </div>
       </div>
+      {/*project section */}
+      <ProjectSection />
       
       {/* Main content section */}
       <div className="relative z-10">

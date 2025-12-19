@@ -38,17 +38,60 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  starColor?: string
+  starSpeed?: string
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, starColor = 'white', starSpeed = '6s', ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
+
+    if (asChild) {
+      return (
+        <Comp
+          className={cn(buttonVariants({ variant, size, className }))}
+          ref={ref}
+          {...props}
+        />
+      )
+    }
+
     return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+      <button
         ref={ref}
+        className={cn(
+          "relative inline-block overflow-hidden rounded-md", // Outer container
+          className
+        )}
+        style={{
+          padding: '1px 0',
+          ...props.style
+        }}
         {...props}
-      />
+      >
+        <div
+          className="absolute w-[300%] h-[50%] opacity-70 bottom-[-11px] right-[-250%] rounded-full animate-star-movement-bottom z-0"
+          style={{
+            background: `radial-gradient(circle, ${starColor}, transparent 10%)`,
+            animationDuration: starSpeed
+          }}
+        ></div>
+        <div
+          className="absolute w-[300%] h-[50%] opacity-70 top-[-10px] left-[-250%] rounded-full animate-star-movement-top z-0"
+          style={{
+            background: `radial-gradient(circle, ${starColor}, transparent 10%)`,
+            animationDuration: starSpeed
+          }}
+        ></div>
+        <div className={cn(
+          "relative z-1 w-full h-full bg-gradient-to-b from-black to-gray-900 border border-gray-800 text-white",
+          buttonVariants({ variant, size }),
+          // Override localized variants with star border specific overrides if necessary
+          "rounded-md"
+        )}>
+           {props.children}
+        </div>
+      </button>
     )
   }
 )
