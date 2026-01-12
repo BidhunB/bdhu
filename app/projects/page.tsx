@@ -1,8 +1,11 @@
 import React from 'react'
+import ProjectSection from '@/components/project-section'
 
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+      <ProjectSection />
+    </div>
   )
 }
 

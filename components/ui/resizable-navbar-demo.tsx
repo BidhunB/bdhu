@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   Navbar,
   NavBody,
@@ -8,10 +8,9 @@ import {
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
-} from "./resizable-navbar"
-import { useState } from "react"
+} from "./resizable-navbar";
+import { useState } from "react";
 import { DownloadButton } from "@/components/ui/download-button";
-import { ModeToggle } from "@/components/ui/mode-toggle";
 
 export function NavbarDemo() {
   const navItems = [
@@ -27,9 +26,9 @@ export function NavbarDemo() {
       name: "Contact",
       link: "/contact",
     },
-  ]
+  ];
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <div className="relative w-full">
@@ -38,7 +37,6 @@ export function NavbarDemo() {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center mr-3 gap-2">
-            <ModeToggle />
             <DownloadButton />
           </div>
         </NavBody>
@@ -67,12 +65,11 @@ export function NavbarDemo() {
               </a>
             ))}
             <div className="flex w-full flex-row gap-4 pt-4">
-               <ModeToggle />
-               <DownloadButton className="w-full" />
+              <DownloadButton className="w-full" />
             </div>
           </MobileNavMenu>
         </MobileNav>
       </Navbar>
     </div>
-  )
+  );
 }
